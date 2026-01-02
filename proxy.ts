@@ -78,6 +78,8 @@ export async function proxy(request: NextRequest) {
   if (isPrivateRoute) {
     return NextResponse.next();
   }
+  // ✅ ОБОВ’ЯЗКОВО
+  return NextResponse.next();
 }
 
 export const config = {
