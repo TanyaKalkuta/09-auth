@@ -37,12 +37,15 @@ export async function fetchNoteByIdServer(id: string): Promise<Note> {
 export async function checkSessionServer(): Promise<
   AxiosResponse<CheckSessionRequest>
 > {
+  // Дістаємо поточні cookie
   const cookieStore = await cookies();
   const res = await nextServer.get<CheckSessionRequest>('/auth/session', {
     headers: {
+      // передаємо кукі далі
       Cookie: cookieStore.toString(),
     },
   });
+  // Повертаємо повний респонс, щоб proxy мав доступ до нових cookie
   return res;
 }
 export async function getMeServer(): Promise<User> {

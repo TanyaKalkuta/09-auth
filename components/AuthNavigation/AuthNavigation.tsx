@@ -10,13 +10,17 @@ function AuthNavigation() {
   const router = useRouter();
   // Отримуємо поточну сесію та юзера
   const isAuthenticated = useAuthStore(state => state.isAuthenticated);
+
   const user = useAuthStore(state => state.user);
+  // Отримуємо метод очищення глобального стану
   const clearIsAuthenticated = useAuthStore(
     state => state.clearIsAuthenticated
   );
 
   const handleLogout = async () => {
+    // Викликаємо logout
     await logout();
+    // Чистимо глобальний стан
     clearIsAuthenticated();
     router.push('/sign-in');
   };
