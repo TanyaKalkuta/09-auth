@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { fetchNoteById } from '@/lib/api';
+import { fetchNoteByIdServer } from '@/lib/api/serverApi';
 import NoteDetailsClient from './NoteDetails.client';
 import {
   QueryClient,
@@ -14,7 +14,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const note = await fetchNoteById(id);
+  const note = await fetchNoteByIdServer(id);
   return {
     title: `Note: ${note.title}`,
     description: note.content.slice(0, 30),
@@ -46,7 +46,7 @@ export default async function NoteDetails({ params }: Props) {
   // 2. Префетч для кешу (не заміняє отримання note!)
   await queryClient.prefetchQuery({
     queryKey: ['note', Number.parseInt(id, 10)],
-    queryFn: () => fetchNoteById(id),
+    queryFn: () => fetchNoteByIdServer(id),
   });
 
   return (

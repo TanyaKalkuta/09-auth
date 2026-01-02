@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import fetchNotes from '@/lib/api';
+import { fetchNotesServer } from '@/lib/api/serverApi';
 // import { fetchNoteById } from '@/lib/api';
 import {
   dehydrate,
@@ -52,7 +52,7 @@ export default async function NotesByCategory({ params }: NotePageProps) {
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ['notes', '', 1, tag],
-    queryFn: () => fetchNotes('', 1, tag),
+    queryFn: () => fetchNotesServer('', 1, tag),
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

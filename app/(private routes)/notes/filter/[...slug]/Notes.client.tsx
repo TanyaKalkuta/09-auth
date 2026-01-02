@@ -6,7 +6,7 @@ import Pagination from '@/components/Pagination/Pagination';
 import SearchBox from '@/components/SearchBox/SearchBox';
 import { useDebounce } from 'use-debounce';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import fetchNotes from '@/lib/api';
+import { fetchNotes } from '@/lib/api/clientApi';
 import Link from 'next/link';
 
 interface Props {
